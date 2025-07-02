@@ -20,3 +20,22 @@ You will need to check the Cuda version. Go to command line and type "nvidia-smi
 These for reformatting the code to meet coding standard and make code easier to read.
 
 Follow steps on [link](https://dev.to/facepalm/how-to-set-formatting-and-linting-on-vscode-for-python-using-black-formatter-and-flake8-extensions-322o#:~:text=You%20can%20set%20max%20length,Flake8%20Options)
+
+## Simiplified Pipeline
+```
+img = get_image()
+view1 = augment(img)
+view2 = augment(img)
+
+embedding1 = model(view1)
+embedding2 = model(view2)
+
+loss = contrastive_loss(embedding1, embedding2, negatives)
+```
+
+### In pros
+* Two augmented views of the same image (positive pair)
+* Many other images as negatives
+* A base encoder (e.g., ResNet18)
+* A projection head (MLP that maps embeddings to contrastive space)
+* A contrastive loss function (e.g., NT-Xent)
