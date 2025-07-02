@@ -1,17 +1,30 @@
 import torchvision
 import torch.nn as nn
+import torch.nn.functional as F
 
 
 class SimCLRModel(nn.Module):
+    """
+    SimCLR model with an encoder (ResNet18) and a projection head.
+    The encoder extracts features, and the projection head maps
+    them to a latent space for contrastive learning.
+    """
+
     def __init__(self):
         super().__init__()
+        # Base encoder
         self.encoder = torchvision.models.resnet18(pretrained=False)
+        # Remove final classification layer
         self.encoder.fc = nn.Identity()
+        # Projection head
         self.projector = nn.Sequential(
             nn.Linear(512, 128), nn.ReLU(), nn.Linear(128, 64)
         )
 
     def forward(self, x):
-        features = self.encoder(x)
-        projection = self.projector(features)
-        return projection
+        # Extract features
+        h = self.encoder(x)
+        # Project to latent space
+        z = self.projector(h)
+        # Normalize embeddings
+        return F.normalize(z, dim=1)
