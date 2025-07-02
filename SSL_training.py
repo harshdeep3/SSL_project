@@ -2,7 +2,7 @@ import torch
 import torchvision
 from torch.utils.data import DataLoader
 from getCifar10Data import CIFAR10Pairs
-from simclrModel import SimCLRModel
+from simclrModel import SimCLRModel, save_model
 import matplotlib.pyplot as plt
 import torch.nn.functional as F
 from tqdm import tqdm
@@ -49,7 +49,7 @@ def train():
     # get device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    file_path = ".\\SSL_project\\test_data"
+    file_path = ".\\SSL_project\\train_data"
     is_training = True
     batch_size = 4
     num_workers = 2
@@ -92,6 +92,8 @@ def train():
 
         avg_loss = total_loss / len(loader)
         print(f"Epoch [{epoch+1}/{epochs}], Loss: {avg_loss:.4f}")
+
+    save_model(filepath=".\\SSL_project\\model\\model.pt", model=model)
 
 
 if __name__ == "__main__":
