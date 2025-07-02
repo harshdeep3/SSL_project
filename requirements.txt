@@ -5,3 +5,4 @@ scikit-learn
 torch==2.7.1
 torchvision==0.22.1
 pytorch-lightning==2.5.2
+tdqm==4.67.1
