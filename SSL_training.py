@@ -50,7 +50,7 @@ def nt_xent_loss(z_i, z_j, temperature=0.5):
     return loss
 
 
-def visualize_embeddings(encoder, num_samples=1000):
+def visualize_embeddings(fodler_path: str, encoder, num_samples=1000):
     """
     Extract and visualize image embeddings using t-SNE.
 
@@ -66,7 +66,10 @@ def visualize_embeddings(encoder, num_samples=1000):
 
     transform = T.Compose([T.ToTensor()])
     testset = torchvision.datasets.CIFAR10(
-        root="\\SSL_project\\test_data", train=False, download=True, transform=transform
+        root=folder_path + "\\test_data",
+        train=False,
+        download=True,
+        transform=transform,
     )
     loader = DataLoader(testset, batch_size=256, shuffle=False)
 
@@ -99,6 +102,8 @@ def visualize_embeddings(encoder, num_samples=1000):
     plt.title("t-SNE of CIFAR-10 Embeddings (SimCLR Encoder)")
     plt.tight_layout()
     plt.show()
+
+    plt.savefig(folder_path + f"model\\embedding2.png")
 
 
 def train(file_path: str):
@@ -153,7 +158,7 @@ def train(file_path: str):
         avg_loss = total_loss / len(loader)
         print(f"Epoch [{epoch+1}/{epochs}], Loss: {avg_loss:.4f}")
 
-    save_model(filepath=file_path + "model\\model.pt", model=model)
+    save_model(filepath=file_path + "model\\model2.pt", model=model)
 
     return model.encoder  # Return the trained encoder
 
@@ -162,9 +167,9 @@ if __name__ == "__main__":
 
     folder_path = ".\\SSL_project\\"
 
-    if not os.path.isfile(folder_path + "model\\model.pt"):
+    if not os.path.isfile(folder_path + "model\\model2.pt"):
         encoder = train(folder_path)
     else:
-        encoder = load_model(folder_path + "model\\model.pt").encoder
+        encoder = load_model(folder_path + "model\\model2.pt").encoder
 
-    visualize_embeddings(encoder, num_samples=1000)
+    visualize_embeddings(folder_path, encoder, num_samples=1000)
