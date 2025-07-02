@@ -1,0 +1,7 @@
+umap-learn==0.5.8
+wandb==0.21.0
+matplotlib==3.9.2
+scikit-learn==1.5.1
+pytorch-lightning==2.5.2
+torch==2.7.1+cu128
+torchvision==0.22.1+cu128
