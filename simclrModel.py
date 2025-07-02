@@ -1,7 +1,7 @@
-import torchvision
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import torchvision
 
 
 class SimCLRModel(nn.Module):
@@ -29,6 +29,19 @@ class SimCLRModel(nn.Module):
         z = self.projector(h)
         # Normalize embeddings
         return F.normalize(z, dim=1)
+
+
+def load_model(filepath: str):
+    """
+    Load the model
+
+    Args:
+        filepath (str): location to saved the model too
+    """
+    model = SimCLRModel()
+    model.load_state_dict(torch.load(filepath, weights_only=True))
+
+    return model
 
 
 def save_model(filepath: str, model: SimCLRModel):
