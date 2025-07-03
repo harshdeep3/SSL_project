@@ -1,6 +1,6 @@
-# SSL_project
+# Sel supervised project (SSL_project)
 
-This project aims to explore self-supervised learning. 
+This project aims to explore self-supervised learning. The theory behind is writen on a [google docs](https://docs.google.com/document/d/1A8WWZ6pXrtEehzWBwBQnVNTihtZqCWcSWt40w7mc4SU/edit?tab=t.0)
 
 ## Step up process:
 
